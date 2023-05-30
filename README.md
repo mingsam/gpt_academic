@@ -1,8 +1,8 @@
 > **Note**
 >
-> 安装依赖时，请严格选择requirements.txt中**指定的版本**。 
+> 5月27日对gradio依赖进行了较大的修复和调整，fork并解决了官方Gradio的一系列bug。但如果27日当天进行了更新，可能会导致代码报错（依赖缺失，卡在loading界面等），请及时更新到**最新版代码**并重新安装pip依赖即可。若给您带来困扰还请谅解。安装依赖时，请严格选择requirements.txt中**指定的版本**： 
 > 
-> `pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/`
+> `pip install -r requirements.txt -i https://pypi.org/simple`
 >
 
 # <img src="docs/logo.png" width="40" > GPT 学术优化 (GPT Academic)
@@ -10,6 +10,7 @@
 **如果喜欢这个项目，请给它一个Star；如果你发明了更好用的快捷键或函数插件，欢迎发pull requests**
 
 If you like this project, please give it a Star. If you've come up with more useful academic shortcuts or functional plugins, feel free to open an issue or pull request. We also have a README in [English|](docs/README_EN.md)[日本語|](docs/README_JP.md)[한국어|](https://github.com/mldljyh/ko_gpt_academic)[Русский|](docs/README_RS.md)[Français](docs/README_FR.md) translated by this project itself.
+To translate this project to arbitary language with GPT, read and run [`multi_language.py`](multi_language.py) (experimental).
 
 > **Note**
 >
@@ -174,21 +175,26 @@ docker-compose up
 
 
 ## 安装-方法3：其他部署姿势
+1. 一键运行脚本。
+完全不熟悉python环境的Windows用户可以下载[Release](https://github.com/binary-husky/gpt_academic/releases)中发布的一键运行脚本安装无本地模型的版本，
+不建议电脑上已有python的用户采用此方法（在此基础上安装插件的依赖很麻烦）。
+脚本的贡献来源是[oobabooga](https://github.com/oobabooga/one-click-installers)。
 
-1. 如何使用反代URL/微软云AzureAPI
+2. 使用docker-compose运行。
+请阅读docker-compose.yml后，按照其中的提示操作即可
+
+3. 如何使用反代URL/微软云AzureAPI。
 按照`config.py`中的说明配置API_URL_REDIRECT即可。
 
-2. 远程云服务器部署（需要云服务器知识与经验）
+4. 远程云服务器部署（需要云服务器知识与经验）。
 请访问[部署wiki-1](https://github.com/binary-husky/chatgpt_academic/wiki/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9C%E7%A8%8B%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97)
 
-3. 使用WSL2（Windows Subsystem for Linux 子系统）
+5. 使用WSL2（Windows Subsystem for Linux 子系统）。
 请访问[部署wiki-2](https://github.com/binary-husky/chatgpt_academic/wiki/%E4%BD%BF%E7%94%A8WSL2%EF%BC%88Windows-Subsystem-for-Linux-%E5%AD%90%E7%B3%BB%E7%BB%9F%EF%BC%89%E9%83%A8%E7%BD%B2)
 
-4. 如何在二级网址（如`http://localhost/subpath`）下运行
+6. 如何在二级网址（如`http://localhost/subpath`）下运行。
 请访问[FastAPI运行说明](docs/WithFastapi.md)
 
-5. 使用docker-compose运行
-请阅读docker-compose.yml后，按照其中的提示操作即可
 ---
 # Advanced Usage
 ## 自定义新的便捷按钮 / 自定义函数插件
@@ -301,7 +307,7 @@ gpt_academic开发者QQ群-2：610599535
 
 - 已知问题
     - 某些浏览器翻译插件干扰此软件前端的运行
-    - gradio版本过高或过低，都会导致多种异常
+    - 官方Gradio目前有很多兼容性Bug，请务必使用requirement.txt安装Gradio
 
 ## 参考与学习
 

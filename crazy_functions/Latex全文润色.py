@@ -66,7 +66,7 @@ def 多文件润色(file_manifest, project_folder, llm_kwargs, plugin_kwargs, ch
         with open(fp, 'r', encoding='utf-8', errors='replace') as f:
             file_content = f.read()
             # 定义注释的正则表达式
-            comment_pattern = r'%.*'
+            comment_pattern = r'(?<!\\)%.*'
             # 使用正则表达式查找注释，并替换为空字符串
             clean_tex_content = re.sub(comment_pattern, '', file_content)
             # 记录删除注释后的文本
@@ -113,12 +113,11 @@ def 多文件润色(file_manifest, project_folder, llm_kwargs, plugin_kwargs, ch
         scroller_max_len = 80
     )
 
-    pfg.sp_file_result = []
-    for i_say, gpt_say in zip(gpt_response_collection[0::2], gpt_response_collection[1::2]):
-        pfg.sp_file_result.append(gpt_say)
-
     #  <-------- 文本碎片重组为完整的tex文件，整理结果为压缩包 ----------> 
     try:
+        pfg.sp_file_result = []
+        for i_say, gpt_say in zip(gpt_response_collection[0::2], gpt_response_collection[1::2]):
+            pfg.sp_file_result.append(gpt_say)
         pfg.merge_result()
         pfg.write_result()
         pfg.zip_result()
@@ -239,5 +238,3 @@ def Latex英文纠错(txt, llm_kwargs, plugin_kwargs, chatbot, history, system_p
         yield from update_ui(chatbot=chatbot, history=history) # 刷新界面
         return
     yield from 多文件润色(file_manifest, project_folder, llm_kwargs, plugin_kwargs, chatbot, history, system_prompt, language='en', mode='proofread')
-
-
